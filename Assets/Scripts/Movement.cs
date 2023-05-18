@@ -25,6 +25,12 @@ public class Movement : MonoBehaviour
         HandleJump();
     }
 
+    // Input apenas para testar
+    void HandleInput() {
+        dir = Input.GetAxisRaw("Horizontal");
+        if (Input.GetKeyDown(KeyCode.Space)) Jump();
+    }
+
     void HandleMovement() {
         actualSpeed = dir * speed;
 
