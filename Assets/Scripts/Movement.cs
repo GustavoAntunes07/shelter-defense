@@ -12,6 +12,9 @@ public class Movement : MonoBehaviour
     float dir;
     Rigidbody2D rb;
 
+    public void SetDirection(float d) => dir = d;
+    public void Jump() => jumpRequest = true;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -22,10 +25,6 @@ public class Movement : MonoBehaviour
         HandleMovement();
         HandleJump();
     }
-
-    public void SetDirection(float d) => dir = d;
-
-    public void Jump() => jumpRequest = true;
 
     // Input apenas para testar
     void HandleInput() {
