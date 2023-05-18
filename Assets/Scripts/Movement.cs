@@ -5,13 +5,12 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class Movement : MonoBehaviour
 {
-    public float speed;
-    public float jumpForce;
+    [SerializeField] float speed;
+    [SerializeField] float jumpForce;
 
-    private bool jumpRequest;
-    private float dir;
-    private Rigidbody2D rb;
-
+    bool jumpRequest;
+    float dir;
+    Rigidbody2D rb;
 
     void Start()
     {
@@ -44,6 +43,6 @@ public class Movement : MonoBehaviour
 
 
     public void SetDirection(float d) => dir = d;
-    
+
     public void Jump() => jumpRequest = true;
 }
