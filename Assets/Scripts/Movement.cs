@@ -23,6 +23,10 @@ public class Movement : MonoBehaviour
         HandleJump();
     }
 
+    public void SetDirection(float d) => dir = d;
+
+    public void Jump() => jumpRequest = true;
+
     // Input apenas para testar
     void HandleInput() {
         dir = Input.GetAxisRaw("Horizontal");
@@ -40,9 +44,4 @@ public class Movement : MonoBehaviour
             jumpRequest = false;
         }
     }
-
-
-    public void SetDirection(float d) => dir = d;
-
-    public void Jump() => jumpRequest = true;
 }
