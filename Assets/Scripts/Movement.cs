@@ -10,7 +10,6 @@ public class Movement : MonoBehaviour
 
     private bool jumpRequest;
     private float dir;
-    private actualSpeed;
     private Rigidbody2D rb;
 
 
@@ -32,8 +31,7 @@ public class Movement : MonoBehaviour
     }
 
     void HandleMovement() {
-        actualSpeed = dir * speed;
-
+        var movement = dir * speed;
         rb.velocity = new Vector2(actualSpeed, rb.velocity.y);
     }
 
