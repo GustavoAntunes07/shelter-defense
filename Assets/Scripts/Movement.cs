@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class Movement : MonoBehaviour
-{
-    [SerializeField] float speed;
-    [SerializeField] float jumpForce;
+public class Movement : MonoBehaviour {
+    [SerializeField] float speed = 5; // meters per second
+    [SerializeField] float jumpForce = 5;
+    [SerializeField] float groundCheckOffset = -.5f;
+    [SerializeField] float groundCheckRadius = .5f;
+    [SerializeField] LayerMask groundCheckMask = ~0;
 
     bool jumpRequest;
     float dir;
@@ -14,14 +16,20 @@ public class Movement : MonoBehaviour
 
     public void SetDirection(float d) => dir = d;
     public void Jump() => jumpRequest = true;
+    public bool IsGrounded() {
+        return Physics2D.OverlapCircle(
+                rb.position + new Vector2(0, groundCheckOffset),
+                groundCheckRadius,
+                groundCheckMask
+            );
+    }
 
-    void Start()
-    {
+    void Start() {
         rb = GetComponent<Rigidbody2D>();
     }
 
-    void Update()
-    {
+    void Update() {
+        HandleInput();
         HandleMovement();
         HandleJump();
     }
@@ -34,13 +42,18 @@ public class Movement : MonoBehaviour
 
     void HandleMovement() {
         var movement = dir * speed;
-        rb.velocity = new Vector2(actualSpeed, rb.velocity.y);
+        rb.velocity = new Vector2(movement, rb.velocity.y);
     }
 
     void HandleJump() {
-        if (jumpRequest) {
+        if (jumpRequest && IsGrounded()) {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
             jumpRequest = false;
         }
+    }
+
+    void OnDrawGizmosSelected() {
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(transform.position + new Vector3(0, groundCheckOffset, 0), groundCheckRadius);
     }
 }
