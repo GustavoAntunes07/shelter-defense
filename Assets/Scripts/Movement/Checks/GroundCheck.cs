@@ -22,7 +22,6 @@ public class GroundCheck : MonoBehaviour {
             wasGrounded = IsGrounded();
             OnGroundedStateChanged?.Invoke(wasGrounded);
         }
-
     }
 
     public bool IsGrounded() {
@@ -31,7 +30,7 @@ public class GroundCheck : MonoBehaviour {
     }
 
     void OnDrawGizmosSelected() {
-        Gizmos.color = Color.green;
+        Gizmos.color = Color.blue;
 
         Vector2 pos = new(transform.position.x, transform.position.y + checkOffset);
         Gizmos.DrawWireSphere(pos, checkRadius);
