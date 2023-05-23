@@ -9,6 +9,8 @@ public class Move : MonoBehaviour {
     [SerializeField, Range(0f, 100f)] private float maxAccelerationWhenStopping = 25f;
     [SerializeField, Range(0f, 100f)] private float maxAccelerationWhenTurning = 50f;
 
+    public BoolEvent OnMove;
+
     private Vector2 direction, desiredVelocity, velocity;
     private Rigidbody2D rb;
 
@@ -35,5 +37,10 @@ public class Move : MonoBehaviour {
         rb.velocity = velocity;
     }
 
-    public void SetDirection(float d) => direction.x = d;
+    public void SetDirection(float d) {
+        if (direction.x != d) {
+            direction.x = d;
+            OnMove?.Invoke(direction.x != 0);
+        }
+    }
 }
