@@ -743,13 +743,15 @@ GameObject:
   m_Component:
   - component: {fileID: 695736833}
   - component: {fileID: 695736840}
-  - component: {fileID: 695736841}
+  - component: {fileID: 695736845}
+  - component: {fileID: 695736844}
   - component: {fileID: 695736830}
   - component: {fileID: 695736836}
   - component: {fileID: 695736835}
   - component: {fileID: 695736834}
   - component: {fileID: 695736838}
   - component: {fileID: 695736842}
+  - component: {fileID: 695736843}
   m_Layer: 3
   m_Name: Player
   m_TagString: Untagged
@@ -825,8 +827,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af71d76701a3a644eba2756e4ffb4654, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  checkOffset: -0.2
-  checkRadius: 0.5
+  checkOffset: -0.3
+  checkRadius: 0.4
   checkMask:
     serializedVersion: 2
     m_Bits: 55
@@ -957,32 +959,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &695736841
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 695736829}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 6200000, guid: 953c664c7dd71234885f42015932f218, type: 2}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.95, y: 0.95}
-  m_EdgeRadius: 0
 --- !u!114 &695736842
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1027,6 +1003,78 @@ MonoBehaviour:
   OnAddHp:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &695736843
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 695736829}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f77ac6c3072cd647b1b2a10925d5033, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speedMultiplier: 2
+  OnSpeedChanged:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 695736834}
+        m_TargetAssemblyTypeName: Move, Assembly-CSharp
+        m_MethodName: SetSpeedMultiplier
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnSpeedAdded:
+    m_PersistentCalls:
+      m_Calls: []
+  OnSpeedRemoved:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!68 &695736844
+EdgeCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 695736829}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: -0.47}
+  m_EdgeRadius: 0
+  m_Points:
+  - {x: -0.35, y: 0}
+  - {x: 0.35, y: 0}
+  m_AdjacentStartPoint: {x: 0, y: 0}
+  m_AdjacentEndPoint: {x: 0, y: 0}
+  m_UseAdjacentStartPoint: 0
+  m_UseAdjacentEndPoint: 0
+--- !u!70 &695736845
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 695736829}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_Size: {x: 0.9, y: 0.9}
+  m_Direction: 0
 --- !u!1 &696394134
 GameObject:
   m_ObjectHideFlags: 0
@@ -5078,7 +5126,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 953c664c7dd71234885f42015932f218, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0

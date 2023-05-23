@@ -15,21 +15,24 @@ public class Move : MonoBehaviour {
     private Rigidbody2D rb;
 
     private float maxSpeedChange, acceleration;
+    float _maxSpeed, _maxAccelerationBasic, _maxAccelerationWhenStopping, _maxAccelerationWhenTurning;
 
     private void Awake() {
         rb = GetComponent<Rigidbody2D>();
+
+        SetSpeedMultiplier(1f);
     }
 
     private void FixedUpdate() {
         velocity = rb.velocity;
-        desiredVelocity = new Vector2(direction.x, 0f) * maxSpeed;
+        desiredVelocity = new Vector2(direction.x, 0f) * _maxSpeed;
 
         if (Mathf.Abs(direction.x) < .01f)
-            acceleration = maxAccelerationWhenStopping;
+            acceleration = _maxAccelerationWhenStopping;
         else if (Mathf.Sign(direction.x) != Mathf.Sign(velocity.x))
-            acceleration = maxAccelerationWhenTurning;
+            acceleration = _maxAccelerationWhenTurning;
         else
-            acceleration = maxAccelerationBasic;
+            acceleration = _maxAccelerationBasic;
 
         maxSpeedChange = acceleration * Time.deltaTime;
         velocity.x = Mathf.MoveTowards(velocity.x, desiredVelocity.x, maxSpeedChange);
@@ -42,5 +45,13 @@ public class Move : MonoBehaviour {
             direction.x = d;
             OnMove?.Invoke(direction.x != 0);
         }
+    }
+
+    public void SetSpeedMultiplier(float multi) {
+        _maxSpeed = maxSpeed * multi;
+        _maxAccelerationBasic = maxAccelerationBasic * multi;
+        _maxAccelerationWhenStopping = maxAccelerationWhenStopping * multi;
+        _maxAccelerationWhenTurning = maxAccelerationWhenTurning * multi;
+        print(multi);
     }
 }
