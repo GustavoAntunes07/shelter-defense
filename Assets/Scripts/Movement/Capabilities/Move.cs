@@ -9,6 +9,7 @@ public class Move : MonoBehaviour {
     [SerializeField, Range(0f, 100f)] private float maxAccelerationWhenStopping = 25f;
     [SerializeField, Range(0f, 100f)] private float maxAccelerationWhenTurning = 50f;
 
+    [Space(8), Header("Events"), Space(8)]
     public BoolEvent OnMove;
 
     private Vector2 direction, desiredVelocity, velocity;
@@ -43,8 +44,10 @@ public class Move : MonoBehaviour {
     public void SetDirection(float d) {
         if (direction.x != d) {
             direction.x = d;
-            OnMove?.Invoke(direction.x != 0);
         }
+
+        if (Mathf.Sign(direction.x) != Mathf.Sign(d))
+            OnMove?.Invoke(direction.x != 0);
     }
 
     public void SetSpeedMultiplier(float multi) {
@@ -52,6 +55,5 @@ public class Move : MonoBehaviour {
         _maxAccelerationBasic = maxAccelerationBasic * multi;
         _maxAccelerationWhenStopping = maxAccelerationWhenStopping * multi;
         _maxAccelerationWhenTurning = maxAccelerationWhenTurning * multi;
-        print(multi);
     }
 }

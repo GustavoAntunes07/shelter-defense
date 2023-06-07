@@ -21,6 +21,8 @@ public class Jump : MonoBehaviour {
 
     void Awake() {
         rb = GetComponent<Rigidbody2D>();
+        minJumpSpeed = Mathf.Sqrt(-2f * Physics2D.gravity.y * risingGravityMultiplier * minJumpHeight);
+        maxJumpSpeed = Mathf.Sqrt(-2f * Physics2D.gravity.y * risingGravityMultiplier * maxJumpHeight);
     }
 
     private void FixedUpdate() {
@@ -50,9 +52,6 @@ public class Jump : MonoBehaviour {
         if (coyoteTimeTimer > 0 && jumpBufferingTimer > 0) {
             coyoteTimeTimer = 0;
             jumpBufferingTimer = 0;
-
-            minJumpSpeed = Mathf.Sqrt(-2f * Physics2D.gravity.y * risingGravityMultiplier * minJumpHeight);
-            maxJumpSpeed = Mathf.Sqrt(-2f * Physics2D.gravity.y * risingGravityMultiplier * maxJumpHeight);
 
             if (jumpHold)
                 velocity.y = maxJumpSpeed;

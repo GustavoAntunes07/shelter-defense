@@ -6,6 +6,8 @@ using UnityEngine.Events;
 public class HealthSystem : MonoBehaviour {
     [SerializeField, Min(0)] float hp;
     [SerializeField, Min(0)] float maxHp = 100f;
+    [SerializeField, Min(0)] float regenerateHpPerSec = 2f;
+    [SerializeField, Min(0)] float regenerateHpDelay = 10f;
 
     [Space(8), Header("Events")]
     public FloatEvent OnSendNormalizedHp;
@@ -15,8 +17,16 @@ public class HealthSystem : MonoBehaviour {
     public FloatEvent OnRemoveHp;
     public FloatEvent OnAddHp;
 
+    private float regenerateHpTimer;
+
     void Start() {
         SetHp(maxHp);
+    }
+
+    void Update() {
+        regenerateHpTimer += Time.deltaTime;
+        if (regenerateHpTimer >= regenerateHpDelay && hp < maxHp)
+            AddHp(regenerateHpPerSec * Time.deltaTime);
     }
 
     public void SetHp(float hp) {
@@ -37,6 +47,7 @@ public class HealthSystem : MonoBehaviour {
     public void RemoveHp(float hp) {
         SetHp(this.hp - hp);
         OnRemoveHp?.Invoke(this.hp);
+        regenerateHpTimer = 0f;
     }
 
     public void AddHp(float hp) {
