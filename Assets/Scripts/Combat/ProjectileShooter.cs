@@ -27,6 +27,7 @@ public class ProjectileShooter : MonoBehaviour
         {
             var bullet = Instantiate(projectilePrefab, shootPoint.position, Quaternion.identity);
             bullet.SetDirection(shootPoint.right);
+            bullet.SetLayerMask(projectileMask);
 
             nextShootingTime = Time.time + 1f / (roundsPerMinute / 60f);
             notAutoShootState = false;

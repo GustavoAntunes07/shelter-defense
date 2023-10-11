@@ -246,4 +246,4 @@ MonoBehaviour:
     m_ColorSpace: -1
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
-  damping: 0.8
+  damping: 0.4

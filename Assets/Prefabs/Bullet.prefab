@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 4068197422084446577}
   - component: {fileID: 2818164827335479839}
   - component: {fileID: 2077855567567000318}
+  - component: {fileID: 1321990791599983722}
   m_Layer: 6
   m_Name: Bullet
   m_TagString: Projectile
@@ -178,12 +179,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ddcf9a807260534b91f4fa7cba4832c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 15
+  damage: 5
   speed: 15
-  gravityEnabled: 0
+  gravityEnabled: 1
+  mask:
+    serializedVersion: 2
+    m_Bits: 0
   onHitObject:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 1321990791599983722}
+        m_TargetAssemblyTypeName: ProjectileParticles, Assembly-CSharp
+        m_MethodName: Spawn
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 2818164827335479839}
         m_TargetAssemblyTypeName: Lifetime, Assembly-CSharp
         m_MethodName: DestroyItself
@@ -254,9 +270,22 @@ CircleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!114 &1321990791599983722
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2467204743971938821}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45f6ff0da7ee21a4683dc75df1e207e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particle: {fileID: 4916203347687717042, guid: 40e6a109172f20242a116982d5d5c4cf, type: 3}
