@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class HealthSystem : MonoBehaviour {
+public class HealthSystem : MonoBehaviour
+{
     [SerializeField, Min(0)] float hp;
     [SerializeField, Min(0)] float maxHp = 100f;
     [SerializeField, Min(0)] float regenerateHpPerSec = 2f;
@@ -18,39 +19,52 @@ public class HealthSystem : MonoBehaviour {
     public FloatEvent OnAddHp;
 
     private float regenerateHpTimer;
+    private bool healEnabled = true;
 
-    void Start() {
+    void Start()
+    {
         SetHp(maxHp);
     }
 
-    void Update() {
-        regenerateHpTimer += Time.deltaTime;
-        if (regenerateHpTimer >= regenerateHpDelay && hp < maxHp)
-            AddHp(regenerateHpPerSec * Time.deltaTime);
+    void Update()
+    {
+        if (healEnabled)
+        {
+            regenerateHpTimer += Time.deltaTime;
+            if (regenerateHpTimer >= regenerateHpDelay && hp < maxHp)
+                AddHp(regenerateHpPerSec * Time.deltaTime);
+        }
     }
 
-    public void SetHp(float hp) {
-        if (this.hp != hp) {
+    public void SetHp(float hp)
+    {
+        if (this.hp != hp)
+        {
             this.hp = Mathf.Clamp(hp, 0f, this.maxHp);
 
             OnSendNormalizedHp?.Invoke(this.hp / this.maxHp);
             OnSendHp?.Invoke(this.hp);
 
-            if (this.hp <= 0) {
+            if (this.hp <= 0)
+            {
                 OnHpEmpty.Invoke();
-            } else if (this.hp >= this.maxHp) {
+            }
+            else if (this.hp >= this.maxHp)
+            {
                 OnHpFull?.Invoke(this.hp);
             }
         }
     }
 
-    public void RemoveHp(float hp) {
+    public void RemoveHp(float hp)
+    {
         SetHp(this.hp - hp);
         OnRemoveHp?.Invoke(this.hp);
         regenerateHpTimer = 0f;
     }
 
-    public void AddHp(float hp) {
+    public void AddHp(float hp)
+    {
         SetHp(this.hp + hp);
         OnAddHp?.Invoke(this.hp);
     }
@@ -60,4 +74,6 @@ public class HealthSystem : MonoBehaviour {
 
     [ContextMenu("Remove 10 Hp")]
     public void RemoveBy10() => RemoveHp(10);
+
+    public void SetHealEnableState(bool b) => healEnabled = b;
 }
