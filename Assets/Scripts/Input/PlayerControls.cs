@@ -4,14 +4,18 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerControls : MonoBehaviour, InputControls.IGameplayActions {
-    public BoolEvent OnJumpEvent;
-
-    [Space]
-    public FloatEvent OnMoveEvent;
+    public BoolEvent onJumpEvent;
+    public FloatEvent onMoveEvent;
+    public BoolEvent onShootEvent;
+    public Vector2Event onMouseDirection;
 
     InputControls i;
+    Camera main;
+    Vector2 pos;
 
     void Start() {
+        main = Camera.main;
+
         if (i == null)
             CreateInstance();
     }
@@ -37,10 +41,29 @@ public class PlayerControls : MonoBehaviour, InputControls.IGameplayActions {
     }
 
     public void OnJump(InputAction.CallbackContext context) {
-        OnJumpEvent?.Invoke(context.ReadValue<float>() > 0.1f);
+        onJumpEvent?.Invoke(context.ReadValue<float>() > 0.1f);
     }
 
     public void OnMove(InputAction.CallbackContext context) {
-        OnMoveEvent?.Invoke(context.ReadValue<float>());
+        onMoveEvent?.Invoke(context.ReadValue<float>());
+    }
+
+    public void OnShoot(InputAction.CallbackContext context) {
+        onShootEvent?.Invoke(context.ReadValue<float>() > 0.1f);
+    }
+
+    public void OnMousePosition(InputAction.CallbackContext context) {
+        var rawPos = context.ReadValue<Vector2>();
+
+        if (context.control.device is Mouse)
+            pos = (Vector2)main.ScreenToWorldPoint(rawPos);
+
+        if (context.control.device is Gamepad && rawPos != Vector2.zero) {
+            pos = (Vector2)transform.position + rawPos;
+        }
+
+        var dir = (pos - (Vector2)transform.position).normalized;
+
+        onMouseDirection?.Invoke(dir);
     }
 }
