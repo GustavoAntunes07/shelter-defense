@@ -31,6 +31,8 @@ public class ProjectileShooter : MonoBehaviour
 
             nextShootingTime = Time.time + 1f / (roundsPerMinute / 60f);
             notAutoShootState = false;
+
+            onShoot?.Invoke();
         }
     }
 
