@@ -181,7 +181,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 5
   speed: 15
-  gravityEnabled: 1
+  gravityEnabled: 0
   mask:
     serializedVersion: 2
     m_Bits: 0

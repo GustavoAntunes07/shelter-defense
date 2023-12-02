@@ -55,7 +55,7 @@ MonoBehaviour:
   m_Follow: {fileID: 5025582347781374941}
   m_Lens:
     FieldOfView: 60
-    OrthographicSize: 3.5
+    OrthographicSize: 6
     NearClipPlane: 0.3
     FarClipPlane: 1000
     Dutch: 0
@@ -520,15 +520,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7878350319992209165, guid: b5e07bb29cc69294bb348d24396b0f21, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.247
+      value: -3.2
       objectReference: {fileID: 0}
     - target: {fileID: 7878350319992209165, guid: b5e07bb29cc69294bb348d24396b0f21, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.038
+      value: -0.04
       objectReference: {fileID: 0}
     - target: {fileID: 7878350319992209165, guid: b5e07bb29cc69294bb348d24396b0f21, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.001
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7878350319992209165, guid: b5e07bb29cc69294bb348d24396b0f21, type: 3}
       propertyPath: m_LocalRotation.w
@@ -707,7 +707,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  onJump:
+  onCalculationsMade:
     m_PersistentCalls:
       m_Calls: []
 --- !u!114 &4928206654081871404
@@ -722,8 +722,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af71d76701a3a644eba2756e4ffb4654, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  checkOffset: -0.3
-  checkRadius: 0.5
+  checkOffset: 0
+  checkRadius: 0.3
   checkMask:
     serializedVersion: 2
     m_Bits: 311
@@ -882,6 +882,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  transformForMouseDir: {fileID: 7997101030777653972}
 --- !u!114 &7533657043475593518
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -933,8 +934,10 @@ MonoBehaviour:
   projectileMask:
     serializedVersion: 2
     m_Bits: 512
+  damage: 5
+  muzzleVelocity: 15
   auto: 0
-  roundsPerMinute: 350
+  roundsPerMinute: 200
   onShoot:
     m_PersistentCalls:
       m_Calls:

@@ -41,6 +41,9 @@ public class Projectile : MonoBehaviour
         this.dir = dir;
     }
 
+    public void SetDamage(float d) => damage = d;
+    public void SetMuzzleVelocity(float v) => speed = v;
+
     public void SetLayerMask(LayerMask newMask) => mask = newMask;
 
     // void OnTriggerEnter2D(Collider2D other)

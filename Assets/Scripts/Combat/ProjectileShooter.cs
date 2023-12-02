@@ -9,6 +9,8 @@ public class ProjectileShooter : MonoBehaviour
     [SerializeField] Projectile projectilePrefab;
     [SerializeField] Transform shootPoint;
     [SerializeField] LayerMask projectileMask = ~0;
+    [SerializeField] float damage = 5;
+    [SerializeField] float muzzleVelocity = 10;
     [SerializeField] bool auto = true;
     [SerializeField] float roundsPerMinute = 550f;
 
@@ -28,6 +30,8 @@ public class ProjectileShooter : MonoBehaviour
             var bullet = Instantiate(projectilePrefab, shootPoint.position, Quaternion.identity);
             bullet.SetDirection(shootPoint.right);
             bullet.SetLayerMask(projectileMask);
+            bullet.SetDamage(damage);
+            bullet.SetMuzzleVelocity(muzzleVelocity);
 
             nextShootingTime = Time.time + 1f / (roundsPerMinute / 60f);
             notAutoShootState = false;
