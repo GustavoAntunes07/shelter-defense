@@ -3,19 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(ProjectileShooter))]
-public class ShooterAi : MonoBehaviour {
+public class ShooterAi : MonoBehaviour
+{
     [SerializeField] float shootTime = 5f;
     [SerializeField] float shootDelay = 3f;
 
     ProjectileShooter shooter;
+    bool canShoot;
 
-    void Start() {
+    void Start()
+    {
         shooter = GetComponent<ProjectileShooter>();
     }
 
-    void Update() {
-        if (!shooter.IsAuto()) {
-
-        }
+    void Update()
+    {
+        shooter.SetShootingState(canShoot);
     }
+
+    public void SetAbleToShoot(bool b) => canShoot = b;
 }

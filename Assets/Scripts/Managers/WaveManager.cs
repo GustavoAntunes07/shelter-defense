@@ -20,7 +20,7 @@ public class WaveManager : MonoBehaviour
 
     void Start()
     {
-        SetWave(0);
+        Reset();
     }
 
     void Update()
@@ -50,7 +50,7 @@ public class WaveManager : MonoBehaviour
             {
                 for (int x = 0; x < waveEnemy.count; x++)
                 {
-                    var position = spawnPositions[(int)Mathf.Floor(Random.Range(0, spawnPositions.Length - 1))].position;
+                    var position = spawnPositions[x % spawnPositions.Length].position;
                     var hp = Instantiate(waveEnemy.obj, position, Quaternion.identity);
                     spawnedEnemies.Add(hp);
                     hp.OnHpEmpty?.AddListener(() =>

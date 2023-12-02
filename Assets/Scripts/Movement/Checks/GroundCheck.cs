@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Xml.Schema;
 using UnityEngine;
 
-public class GroundCheck : MonoBehaviour {
+public class GroundCheck : MonoBehaviour
+{
     [SerializeField, Range(-10, 10)] float checkOffset = -.5f;
     [SerializeField, Range(0, 10)] float checkRadius = .4f;
     [SerializeField] LayerMask checkMask = ~0;
@@ -10,26 +12,24 @@ public class GroundCheck : MonoBehaviour {
     [Space(16)]
     public BoolEvent OnGroundedStateChanged;
 
-    bool wasGrounded;
+    bool isGrounded;
 
-    void Start() {
-        wasGrounded = IsGrounded();
-        OnGroundedStateChanged?.Invoke(wasGrounded);
+
+    void Update()
+    {
+        OnGroundedStateChanged?.Invoke(IsGrounded());
+        isGrounded = IsGrounded();
     }
 
-    void Update() {
-        if (wasGrounded != IsGrounded()) {
-            wasGrounded = IsGrounded();
-            OnGroundedStateChanged?.Invoke(wasGrounded);
-        }
-    }
-
-    public bool IsGrounded() {
+    public bool IsGrounded()
+    {
         Vector2 pos = new(transform.position.x, transform.position.y + checkOffset);
+
         return Physics2D.OverlapCircle(pos, checkRadius, checkMask);
     }
 
-    void OnDrawGizmosSelected() {
+    void OnDrawGizmosSelected()
+    {
         Gizmos.color = Color.blue;
 
         Vector2 pos = new(transform.position.x, transform.position.y + checkOffset);

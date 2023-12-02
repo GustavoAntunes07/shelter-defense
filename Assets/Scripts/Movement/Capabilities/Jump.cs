@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class Jump : MonoBehaviour
@@ -13,6 +14,7 @@ public class Jump : MonoBehaviour
     [SerializeField, Range(0f, 1f)] float jumpBufferingTime = 0.2f;
 
     public BoolEvent onGrounded;
+    public UnityEvent onCalculationsMade;
 
     Rigidbody2D rb;
     Vector2 velocity;
@@ -33,9 +35,18 @@ public class Jump : MonoBehaviour
     {
         velocity = rb.velocity;
 
+        HandleJump();
+
+        rb.velocity = velocity;
+    }
+
+    private void HandleJump()
+    {
         coyoteTimeTimer -= Time.deltaTime;
         if (isGrounded)
+        {
             coyoteTimeTimer = coyoteTime;
+        }
 
         jumpBufferingTimer -= Time.deltaTime;
         if (jumpHold != wasHoldingJump)
@@ -49,23 +60,21 @@ public class Jump : MonoBehaviour
         else if (rb.velocity.y < 0)
             rb.gravityScale = fallingGravityMultiplier;
 
-        HandleJump();
-
-        rb.velocity = velocity;
-    }
-
-    private void HandleJump()
-    {
         if (coyoteTimeTimer > 0 && jumpBufferingTimer > 0)
         {
             coyoteTimeTimer = 0;
             jumpBufferingTimer = 0;
 
-            if (jumpHold)
+            if (velocity.y <= minJumpSpeed)
                 velocity.y = maxJumpSpeed;
-            else if (!jumpHold && velocity.y > minJumpSpeed)
+
+            else
+            {
                 velocity.y = minJumpSpeed;
+            }
+
         }
+        onCalculationsMade?.Invoke();
     }
 
     public void SetGroundedState(bool g)
