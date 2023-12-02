@@ -60,7 +60,6 @@ public class WaveManager : MonoBehaviour
                         {
                             intermissionTimer = intermissionTime;
                         }
-                        Destroy(hp.gameObject);
                         return;
                     });
                 }

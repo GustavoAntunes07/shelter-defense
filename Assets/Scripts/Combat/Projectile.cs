@@ -49,7 +49,7 @@ public class Projectile : MonoBehaviour
     // void OnTriggerEnter2D(Collider2D other)
     void OnCollisionEnter2D(Collision2D col)
     {
-        if (GameUtils.IsOnLayerMask(col.gameObject.layer, mask))
+        if (GameUtils.IsOnLayerMask(col.gameObject.layer, mask) && !col.collider.isTrigger)
         {
             if (col.gameObject.TryGetComponent(out HealthSystem hp))
             {

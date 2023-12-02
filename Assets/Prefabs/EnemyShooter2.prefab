@@ -88,7 +88,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df6ee6df98184b3428a71b6421ae6563, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectilePrefab: {fileID: 4068197422084446577, guid: d40c39afa5f4898468edb64f9d6c8800, type: 3}
+  projectilePrefab: {fileID: 5379954927965530446, guid: df1e18af80cf8b94fbf74495f00375e3, type: 3}
   shootPoint: {fileID: 826111075052467395}
   projectileMask:
     serializedVersion: 2
@@ -265,6 +265,8 @@ GameObject:
   - component: {fileID: 2361181769810740857}
   - component: {fileID: 7174394737393212436}
   - component: {fileID: 8345448217861756709}
+  - component: {fileID: 4425758499612859037}
+  - component: {fileID: 2607433555765051157}
   m_Layer: 9
   m_Name: EnemyShooter2
   m_TagString: Untagged
@@ -379,7 +381,31 @@ MonoBehaviour:
       m_Calls: []
   OnHpEmpty:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4425758499612859037}
+        m_TargetAssemblyTypeName: CoinDropper, Assembly-CSharp
+        m_MethodName: Trigger
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2607433555765051157}
+        m_TargetAssemblyTypeName: Lifetime, Assembly-CSharp
+        m_MethodName: DestroyItself
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   OnHpFull:
     m_PersistentCalls:
       m_Calls: []
@@ -626,6 +652,36 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 1, y: 1}
   m_Direction: 0
+--- !u!114 &4425758499612859037
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2836965065333538168}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e729860732ba9840a72db6477bd1c98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  drop: {fileID: 11400000, guid: b6afa78331e9364458cf7145ed9809e6, type: 2}
+--- !u!114 &2607433555765051157
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2836965065333538168}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0c1ebd2993671c46b9f0ab142d5d732, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lifetime: 5
+  triggerOnStart: 1
+  onLifetimeOver:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &3394194603903566250
 GameObject:
   m_ObjectHideFlags: 0
@@ -889,6 +945,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 9078142225235318183}
     m_Modifications:
+    - target: {fileID: 3840679598265990813, guid: f6693a787c6d796408bbbf12b55a91e6, type: 3}
+      propertyPath: m_PixelsPerUnitMultiplier
+      value: 1000
+      objectReference: {fileID: 0}
     - target: {fileID: 5266981835988909810, guid: f6693a787c6d796408bbbf12b55a91e6, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -969,17 +1029,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6050897635193956437, guid: f6693a787c6d796408bbbf12b55a91e6, type: 3}
-      propertyPath: m_EffectDistance.x
-      value: 0.03
-      objectReference: {fileID: 0}
-    - target: {fileID: 6050897635193956437, guid: f6693a787c6d796408bbbf12b55a91e6, type: 3}
-      propertyPath: m_EffectDistance.y
-      value: 0.03
-      objectReference: {fileID: 0}
     - target: {fileID: 6239619333886001230, guid: f6693a787c6d796408bbbf12b55a91e6, type: 3}
       propertyPath: m_Name
       value: HpBar
+      objectReference: {fileID: 0}
+    - target: {fileID: 7291428918288790937, guid: f6693a787c6d796408bbbf12b55a91e6, type: 3}
+      propertyPath: m_PixelsPerUnitMultiplier
+      value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 7459028103475397022, guid: f6693a787c6d796408bbbf12b55a91e6, type: 3}
+      propertyPath: m_UseGraphicAlpha
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7459028103475397022, guid: f6693a787c6d796408bbbf12b55a91e6, type: 3}
+      propertyPath: m_EffectDistance.x
+      value: 0.02
+      objectReference: {fileID: 0}
+    - target: {fileID: 7459028103475397022, guid: f6693a787c6d796408bbbf12b55a91e6, type: 3}
+      propertyPath: m_EffectDistance.y
+      value: 0.02
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
