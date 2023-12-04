@@ -96,10 +96,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 580c39c8f8033c646b77b9296f35c4ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animatePosition: 1
   range: 0.15
   threshold: 0.01
   offsetY: 0.5
   damping: 0.8
+  animateScale: 1
+  targetScale: 1.2
 --- !u!212 &3400027854126606219
 SpriteRenderer:
   m_ObjectHideFlags: 0

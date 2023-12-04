@@ -20,10 +20,12 @@ public class HealthSystem : MonoBehaviour
 
     private float regenerateHpTimer;
     private bool healEnabled = true;
+    float _healingAmount;
+    float _maxHp;
 
     void Start()
     {
-        SetHp(maxHp);
+        SetHealthMulti(1f);
     }
 
     void Update()
@@ -31,8 +33,8 @@ public class HealthSystem : MonoBehaviour
         if (healEnabled)
         {
             regenerateHpTimer += Time.deltaTime;
-            if (regenerateHpTimer >= regenerateHpDelay && hp < maxHp)
-                AddHp(regenerateHpPerSec * Time.deltaTime);
+            if (regenerateHpTimer >= regenerateHpDelay && hp < _maxHp)
+                AddHp(_healingAmount * Time.deltaTime);
         }
     }
 
@@ -40,19 +42,27 @@ public class HealthSystem : MonoBehaviour
     {
         if (this.hp != hp)
         {
-            this.hp = Mathf.Clamp(hp, 0f, this.maxHp);
+            this.hp = Mathf.Clamp(hp, 0f, _maxHp);
 
-            OnSendNormalizedHp?.Invoke(this.hp / this.maxHp);
+            OnSendNormalizedHp?.Invoke(this.hp / _maxHp);
             OnSendHp?.Invoke(this.hp);
 
             if (this.hp <= 0)
             {
                 OnHpEmpty.Invoke();
             }
-            else if (this.hp >= this.maxHp)
+            else if (this.hp >= _maxHp)
             {
                 OnHpFull?.Invoke(this.hp);
             }
+        }
+    }
+
+    public void SetMaxHp(float max)
+    {
+        if (_maxHp != max && max != 0)
+        {
+            _maxHp = max;
         }
     }
 
@@ -69,11 +79,14 @@ public class HealthSystem : MonoBehaviour
         OnAddHp?.Invoke(this.hp);
     }
 
-    [ContextMenu("Add 10 Hp")]
-    public void AddBy10() => AddHp(10);
-
-    [ContextMenu("Remove 10 Hp")]
-    public void RemoveBy10() => RemoveHp(10);
+    public float GetHp() => hp;
+    public float GetMaxHp() => _maxHp;
 
     public void SetHealEnableState(bool b) => healEnabled = b;
+    public void SetHealingMulti(float m) { _healingAmount = regenerateHpPerSec * m; }
+    public void SetHealthMulti(float m)
+    {
+        SetMaxHp(maxHp * m);
+        SetHp(GetMaxHp());
+    }
 }

@@ -7,6 +7,7 @@ using UnityEngine.Events;
 public class CurrencyManager : MonoBehaviour
 {
     [SerializeField] int coins;
+    [SerializeField] int profitMulti;
     public IntEvent OnSendCoins;
     public StringEvent OnSendCoinsText;
     private void Start()
@@ -16,21 +17,22 @@ public class CurrencyManager : MonoBehaviour
 
     public int GetCoins() => coins;
 
-    public void SetCoins(int c)
+    public string SetCoins(int c)
     {
         if (c >= 0 && coins != c)
         {
             coins = c;
             OnSendCoins?.Invoke(coins);
             OnSendCoinsText?.Invoke(coins.ToString());
+            return "success";
         }
+        return "fail";
     }
 
-    public void SpendCoins(int cost) => SetCoins(coins - cost);
-    public void EarnCoins(int gain) => SetCoins(coins + gain);
-
-    [ContextMenu("Add 100 coins")]
-    public void Add100() => EarnCoins(100);
-    [ContextMenu("Remove 100 coins")]
-    public void Remove100() => SpendCoins(100);
+    public string SpendCoins(int cost) => SetCoins(coins - cost);
+    public string EarnCoins(int gain) => SetCoins(coins + (gain * profitMulti));
+    public void SetProfitMulti(float m)
+    {
+        profitMulti = Mathf.FloorToInt(m);
+    }
 }

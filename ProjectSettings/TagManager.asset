@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Projectile
   - House
+  - Upgrades
   layers:
   - Default
   - TransparentFX

@@ -20,6 +20,12 @@ public class ProjectileShooter : MonoBehaviour
     bool isShooting;
     float nextShootingTime;
     bool notAutoShootState;
+    float _damage;
+
+    private void Start()
+    {
+        SetDamageMultiplier(1f);
+    }
 
     void Update()
     {
@@ -30,7 +36,7 @@ public class ProjectileShooter : MonoBehaviour
             var bullet = Instantiate(projectilePrefab, shootPoint.position, Quaternion.identity);
             bullet.SetDirection(shootPoint.right);
             bullet.SetLayerMask(projectileMask);
-            bullet.SetDamage(damage);
+            bullet.SetDamage(_damage);
             bullet.SetMuzzleVelocity(muzzleVelocity);
 
             nextShootingTime = Time.time + 1f / (roundsPerMinute / 60f);
@@ -51,4 +57,9 @@ public class ProjectileShooter : MonoBehaviour
     }
 
     public bool IsAuto() => auto;
+
+    public void SetDamageMultiplier(float m)
+    {
+        _damage = damage * m;
+    }
 }
