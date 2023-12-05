@@ -6,6 +6,7 @@ using UnityEngine;
 public class Coin : MonoBehaviour
 {
     public float force = 2f;
+    public float forceVariationRange = .5f;
     public float stopDelay = 2f;
     float timer;
 
@@ -14,7 +15,15 @@ public class Coin : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        rb.AddForce(new Vector2(Mathf.Sign(Random.Range(-1, 1)), 1) * force, ForceMode2D.Impulse);
+
+
+        rb.AddForce(new Vector2(
+            Mathf.Sign(Random.Range(-1, 1)), 1) * Random.Range(
+                force - forceVariationRange,
+                force + forceVariationRange
+            ),
+            ForceMode2D.Impulse
+        );
     }
 
     private void Update()

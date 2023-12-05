@@ -9,6 +9,7 @@ public class EnemyShooterAI : MonoBehaviour
     public float distanceToStop = 7.5f;
     public float distanceToStopVariation = 3;
     public BoolEvent OnStop;
+    public FloatEvent OnSendDirection;
 
     Move move;
     GameObject house;
@@ -48,5 +49,7 @@ public class EnemyShooterAI : MonoBehaviour
 
         if (isCloseToHouse != wasCloseToHouse)
             OnStop?.Invoke(isCloseToHouse);
+
+        OnSendDirection?.Invoke(dirToHouse);
     }
 }
