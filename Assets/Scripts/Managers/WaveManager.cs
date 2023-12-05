@@ -1,42 +1,45 @@
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class WaveManager : MonoBehaviour
 {
+    public bool startOnAwake = false;
+    public float startTime = 10f;
     public WaveSO[] waves;
     public Transform[] spawnPositions;
     List<HealthSystem> spawnedEnemies = new List<HealthSystem>();
-    public float intermissionTime = 5;
-    public int frameDelayEventTrigger = 4;
+    public float intermissionTime = 20f;
+    public UnityEvent OnWin;
     public StringEvent OnIntermissionTimerChange;
 
-    int wave = 0;
+    int wave = -1;
     float intermissionTimer;
-    int frameDelay;
 
     public void NextWave() => SetWave(wave + 1);
     public void Reset() => SetWave(0);
-    public string GetTimer() => intermissionTimer >= 0 ? intermissionTimer.ToString("F0") : "";
+    public string GetTimerText() => intermissionTimer >= 0 ? intermissionTimer.ToString("F0") : $"WAVE\n{wave + 1}";
 
     void Start()
     {
-        Reset();
+        if (startOnAwake)
+            Reset();
+        else
+            intermissionTimer = startTime;
     }
 
     void Update()
     {
         var lastTimer = intermissionTimer;
         intermissionTimer -= Time.deltaTime;
-        if (frameDelay > 0) frameDelay--;
-        else if (frameDelay <= 0)
-        {
-            OnIntermissionTimerChange?.Invoke(GetTimer());
-            frameDelay = frameDelayEventTrigger;
-        }
+        OnIntermissionTimerChange?.Invoke(GetTimerText());
 
         if (intermissionTimer <= 0 && lastTimer > 0)
         {
-            NextWave();
+            if (wave >= 0)
+                NextWave();
+            else Reset();
         }
     }
 
@@ -45,7 +48,6 @@ public class WaveManager : MonoBehaviour
         if (i >= 0 && i < waves.Length)
         {
             wave = i;
-
             foreach (var waveEnemy in waves[wave].uniqueEnemies)
             {
                 for (int x = 0; x < waveEnemy.count; x++)
@@ -56,11 +58,10 @@ public class WaveManager : MonoBehaviour
                     hp.OnHpEmpty?.AddListener(() =>
                     {
                         spawnedEnemies.Remove(hp);
-                        if (spawnedEnemies.Count <= 0)
-                        {
+                        if (spawnedEnemies.Count <= 0 && wave != waves.Length - 1)
                             intermissionTimer = intermissionTime;
-                        }
-                        return;
+                        else if (wave == waves.Length - 1)
+                            OnWin?.Invoke();
                     });
                 }
             }

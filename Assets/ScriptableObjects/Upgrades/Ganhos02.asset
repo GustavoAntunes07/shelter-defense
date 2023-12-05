@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Ganhos02
   m_EditorClassIdentifier: 
   type: 4
-  price: 15
+  price: 10
   multi: 2

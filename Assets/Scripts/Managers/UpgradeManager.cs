@@ -41,7 +41,7 @@ public class UpgradeManager : MonoBehaviour
 
         upgradesUiObj = GameObject.FindGameObjectWithTag(upgradesTag);
 
-        provs = new IUpgradeProvider[] { speed, damage, heal, hp, p };
+        provs = new IUpgradeProvider[] { p, hp, damage, heal, speed };
 
         Populate();
     }

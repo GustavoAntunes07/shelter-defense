@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Vida03
   m_EditorClassIdentifier: 
   type: 2
-  price: 29
-  multi: 3
+  price: 19
+  multi: 2.25

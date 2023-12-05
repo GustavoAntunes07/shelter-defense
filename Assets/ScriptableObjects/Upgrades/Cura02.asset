@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Cura02
   m_EditorClassIdentifier: 
   type: 3
-  price: 12
-  multi: 1.5
+  price: 8
+  multi: 2

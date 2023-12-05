@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Dano04
   m_EditorClassIdentifier: 
   type: 1
-  price: 50
-  multi: 2.5
+  price: 80
+  multi: 3

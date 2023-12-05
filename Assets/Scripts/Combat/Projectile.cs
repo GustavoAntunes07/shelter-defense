@@ -51,7 +51,7 @@ public class Projectile : MonoBehaviour
     {
         if (GameUtils.IsOnLayerMask(col.gameObject.layer, mask) && !col.collider.isTrigger)
         {
-            if (col.gameObject.TryGetComponent(out HealthSystem hp))
+            if (col.gameObject.TryGetComponent(out HealthSystem hp) && col.gameObject != null)
             {
                 hp.RemoveHp(damage);
                 onHitObject?.Invoke(col.GetContact(0));
