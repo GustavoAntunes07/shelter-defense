@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(HealthSystem))]
+[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(CapsuleCollider2D))]
 public class KrampusAI : MonoBehaviour
 {
     public WaveSO horde;
@@ -12,20 +14,22 @@ public class KrampusAI : MonoBehaviour
 
     List<HealthSystem> spawnedEnemies = new List<HealthSystem>();
     HealthSystem myHp;
+    Rigidbody2D rb;
+    CapsuleCollider2D col;
     float timer;
 
     private void Start()
     {
         myHp = GetComponent<HealthSystem>();
-        myHp.OnHpEmpty?.AddListener(() =>
-        {
-            foreach (var e in spawnedEnemies)
-            {
-                spawnedEnemies.Remove(e);
-                Destroy(e.gameObject);
-            }
-        });
         timer = spawnDelay;
+        rb = GetComponent<Rigidbody2D>();
+
+
+        OnSendShootState?.AddListener((bool b) =>
+        {
+            rb.constraints = b ? RigidbodyConstraints2D.FreezeRotation : RigidbodyConstraints2D.FreezeAll;
+            col.enabled = b;
+        });
     }
 
     private void Update()
@@ -37,6 +41,7 @@ public class KrampusAI : MonoBehaviour
         {
             SpawnHorde();
         }
+        OnSendShootState?.Invoke(spawnedEnemies.Count == 0);
     }
 
     public void SpawnHorde()
@@ -56,7 +61,6 @@ public class KrampusAI : MonoBehaviour
                 hp.OnHpEmpty?.AddListener(() =>
                 {
                     spawnedEnemies.Remove(hp);
-                    OnSendShootState?.Invoke(spawnedEnemies.Count == 0);
                     if (spawnedEnemies.Count == 0)
                     {
                         timer = spawnDelay;
@@ -64,6 +68,5 @@ public class KrampusAI : MonoBehaviour
                 });
             }
         }
-        OnSendShootState?.Invoke(spawnedEnemies.Count == 0);
     }
 }

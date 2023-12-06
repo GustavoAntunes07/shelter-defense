@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Threading;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Events;
@@ -11,11 +12,14 @@ public class WaveManager : MonoBehaviour
     public Transform[] spawnPositions;
     List<HealthSystem> spawnedEnemies = new List<HealthSystem>();
     public float intermissionTime = 20f;
+    public float shootTime = 3f;
     public UnityEvent OnWin;
     public StringEvent OnIntermissionTimerChange;
+    public BoolEvent OnCanShoot;
 
     int wave = -1;
     float intermissionTimer;
+    float shootTimer;
 
     public void NextWave() => SetWave(wave + 1);
     public void Reset() => SetWave(0);
@@ -26,7 +30,10 @@ public class WaveManager : MonoBehaviour
         if (startOnAwake)
             Reset();
         else
+        {
             intermissionTimer = startTime;
+            shootTimer = float.MaxValue;
+        }
     }
 
     void Update()
@@ -40,7 +47,12 @@ public class WaveManager : MonoBehaviour
             if (wave >= 0)
                 NextWave();
             else Reset();
+
+            shootTimer = shootTime;
         }
+
+        shootTimer -= Time.deltaTime;
+        OnCanShoot?.Invoke(shootTimer <= 0 && intermissionTimer <= 0);
     }
 
     public void SetWave(int i)

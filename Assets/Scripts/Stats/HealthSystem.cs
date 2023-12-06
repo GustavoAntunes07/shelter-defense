@@ -40,7 +40,7 @@ public class HealthSystem : MonoBehaviour
 
     public void SetHp(float hp)
     {
-        if (this.hp != hp)
+        if (this.hp != hp && enabled)
         {
             this.hp = Mathf.Clamp(hp, 0f, _maxHp);
 
@@ -60,7 +60,7 @@ public class HealthSystem : MonoBehaviour
 
     public void SetMaxHp(float max)
     {
-        if (_maxHp != max && max != 0)
+        if (_maxHp != max && max != 0 && enabled)
         {
             _maxHp = max;
         }

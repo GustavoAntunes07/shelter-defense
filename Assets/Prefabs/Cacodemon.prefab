@@ -514,7 +514,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a1bdf14d0f20194180ba9bff188677b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 4
+  maxSpeed: 5
   maxAccelerationBasic: 35
   maxAccelerationWhenStopping: 25
   maxAccelerationWhenTurning: 50
@@ -603,8 +603,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   houseTag: House
-  distanceToStop: 7
-  distanceToStopVariation: 4
+  distanceToStop: 5
+  distanceToStopVariation: 2
   OnStop:
     m_PersistentCalls:
       m_Calls:
@@ -630,7 +630,7 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 0
+          m_BoolArgument: 1
         m_CallState: 2
   OnSendDirection:
     m_PersistentCalls:
