@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(HealthSystem))]
 [RequireComponent(typeof(Rigidbody2D))]
@@ -11,6 +12,7 @@ public class KrampusAI : MonoBehaviour
     public float spawnDelay = 10f;
     public float spawnOffset = 5f;
     public BoolEvent OnSendShootState;
+    public UnityEvent OnSpawnHorde;
 
     List<HealthSystem> spawnedEnemies = new List<HealthSystem>();
     HealthSystem myHp;
@@ -68,5 +70,6 @@ public class KrampusAI : MonoBehaviour
                 });
             }
         }
+        OnSpawnHorde?.Invoke();
     }
 }
