@@ -23,7 +23,7 @@ public class KrampusAI : MonoBehaviour
         myHp = GetComponent<HealthSystem>();
         timer = spawnDelay;
         rb = GetComponent<Rigidbody2D>();
-
+        col = GetComponent<CapsuleCollider2D>();
 
         OnSendShootState?.AddListener((bool b) =>
         {
