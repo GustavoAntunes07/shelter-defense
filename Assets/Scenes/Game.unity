@@ -1665,11 +1665,11 @@ MonoBehaviour:
   startOnAwake: 0
   startTime: 5
   waves:
-  - {fileID: 11400000, guid: 1d31557d313328c4a8e52541524b424d, type: 2}
   - {fileID: 11400000, guid: d4b13457da9e5634f9c5a9897c15944e, type: 2}
   - {fileID: 11400000, guid: 2c6c517ba0ec4cb4abc06f43b10cebfe, type: 2}
   - {fileID: 11400000, guid: f6740fe539b3edb4f80dd3cc607e8f5b, type: 2}
   - {fileID: 11400000, guid: e6983094f277ba344b04c80f22dd5b8e, type: 2}
+  - {fileID: 11400000, guid: 1d31557d313328c4a8e52541524b424d, type: 2}
   spawnPositions:
   - {fileID: 815769638}
   - {fileID: 63171608}
